@@ -137,7 +137,6 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libsndmonitor \
     libvolumelistener \
-    tinymix \
     libtinycompress \
     libaudioroute.vendor \
     libstagefright_softomx_plugin.vendor
