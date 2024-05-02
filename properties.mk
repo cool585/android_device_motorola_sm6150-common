@@ -196,7 +196,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gralloc.disable_ubwc=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.enable_hwc_vds=0
+    debug.sf.enable_hwc_vds=0 \
+    ro.config.avoid_gfx_accel=true
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
