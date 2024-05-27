@@ -198,6 +198,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_hwc_vds=0
 
+# HWUI
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwui.use_hint_manager=true \
+    debug.hwui.target_cpu_time_percent=30
+
 # IMS
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.volte_avail_ovr=1 \
