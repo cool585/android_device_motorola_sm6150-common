@@ -91,10 +91,6 @@ TARGET_MODULE_ALIASES += \
     wsa881x_dlkm.ko:audio_wsa881x.ko \
     wsa_macro_dlkm.ko:audio_wsa_macro.ko
 
-# Kernel modules - WLAN
-TARGET_MODULE_ALIASES += \
-    wlan.ko:qca_cld3_wlan.ko
-
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
 QCOM_BOARD_PLATFORMS += sm6150
