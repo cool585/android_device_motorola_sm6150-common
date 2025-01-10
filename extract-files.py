@@ -21,6 +21,7 @@ from extract_utils.main import (
 namespace_imports = [
     'device/motorola/sm6150-common',
     'hardware/motorola',
+    'hardware/qcom/sm8150/gps',
     'hardware/qcom-caf/sm8150',
     'hardware/qcom-caf/wlan',
     'vendor/qcom/opensource/commonsys/display',
@@ -32,7 +33,6 @@ namespace_imports = [
 
 def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
     return f'{lib}_{partition}' if partition == 'vendor' else None
-
 
 lib_fixups: lib_fixups_user_type = {
     **lib_fixups,
