@@ -116,11 +116,13 @@ PRODUCT_PACKAGES += \
     audio.primary.sm6150 \
     audio.r_submix.default \
     audio.usb.default \
+    libaudiopreprocessing \
+    libqcompostprocbundle \
     libaudio-resampler \
     libaudioroute \
     libhdmiedid \
     libhfp \
-    libqcompostprocbundle \
+    libvisualizer \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libsndmonitor \
