@@ -30,6 +30,9 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
     $(LOCAL_PATH)/overlay-lineage/lineage-sdk
 
+# UFFD GC
+OVERRIDE_ENABLE_UFFD_GC := false
+
 # A/B
 AB_OTA_UPDATER := true
 
@@ -156,6 +159,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
+$(call soong_config_set,QTI_GPT_UTILS,USE_BSG_FRAMEWORK,false)
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     liba2dpoffload \
@@ -230,6 +235,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.4-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
+    gralloc.qcom \
     gralloc.sm6150 \
     hwcomposer.sm6150 \
     libdisplayconfig.qti \
@@ -359,6 +365,7 @@ PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.0.vendor
 
 # OMX
+ifeq ($(TARGET_SUPPORTS_OMX_SERVICE),true)
 PRODUCT_PACKAGES += \
     libavservices_minijail \
     libavservices_minijail.vendor \
@@ -376,6 +383,7 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxVidcCommon \
     libstagefrighthw
+endif
 
 # Perf
 PRODUCT_PACKAGES += \
@@ -396,10 +404,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     libprotobuf-cpp-lite-3.9.1-vendorcompat
-
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v29/arm/arch-arm-armv7-a-neon/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-full.so \
-    prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libprotobuf-cpp-full.so 
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -498,13 +502,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
     update_engine_client
 
+# Partitions
+PRODUCT_PACKAGES += \
+    vendor_super_fsg_mountpoint \
+    vendor_super_modem_mountpoint
+
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3-service.dual_role_usb
 
-# VNDK
+# Artifact path requirements
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := strict
-PRODUCT_PRODUCT_VNDK_VERSION := current
 
 # Wifi
 PRODUCT_PACKAGES += \
