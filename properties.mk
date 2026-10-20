@@ -177,6 +177,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
+    debug.renderengine.blur_algorithm=kawase_darkmoon \
     debug.sf.auto_latch_unsignaled=0 \
     debug.sf.latch_unsignaled=1 \
     debug.sf.enable_adpf_cpu_hint=true \
