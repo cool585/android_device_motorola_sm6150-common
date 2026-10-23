@@ -181,9 +181,9 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Graphics
 PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.auto_latch_unsignaled=0 \
     debug.sf.latch_unsignaled=1 \
     debug.sf.enable_adpf_cpu_hint=true \
-    persist.demo.hdmirotationlock=false \
     persist.sys.sf.color_saturation=1.0 \
     persist.sys.sf.native_mode=1 \
     persist.sys.sf.force_brightness_capability=1 \
@@ -194,8 +194,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.gralloc.disable_ubwc=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.enable_hwc_vds=0 \
-    ro.config.avoid_gfx_accel=true
+    debug.sf.enable_hwc_vds=0
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -216,7 +215,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.incremental.enable=1
 
 # LMKd
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.thrashing_limit=200 \
     ro.lmk.swap_free_low_percentage=10 \
     ro.lmk.psi_partial_stall_ms=120 \
@@ -233,9 +232,12 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
-    media.settings.xml=/vendor/etc/media_profiles_vendor.xml \
     media.stagefright.thumbnail.prefer_hw_codecs=true \
     persist.vendor.media.recorder.bt709=true
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    media.settings.xml=/vendor/etc/media_profiles_vendor.xml \
+    ro.config.avoid_gfx_accel=true
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     av.offload.enable=true \
