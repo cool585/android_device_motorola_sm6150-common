@@ -159,6 +159,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
+$(call soong_config_set_bool,QTI_GPT_UTILS,USE_BSG_FRAMEWORK,false)
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     liba2dpoffload \
@@ -229,6 +231,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.4-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
+    gralloc.qcom \
     gralloc.sm6150 \
     hwcomposer.sm6150 \
     libdisplayconfig.qti \
@@ -351,6 +354,7 @@ PRODUCT_PACKAGES += \
     android.hardware.neuralnetworks@1.1.vendor \
     android.hardware.neuralnetworks@1.0.vendor
 
+ifeq ($(TARGET_SUPPORTS_OMX_SERVICE),true)
 # OMX
 PRODUCT_PACKAGES += \
     libavservices_minijail \
@@ -369,6 +373,7 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxVidcCommon \
     libstagefrighthw
+endif
 
 # Perf
 PRODUCT_PACKAGES += \
@@ -389,10 +394,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     libprotobuf-cpp-lite-3.9.1-vendorcompat
-
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v29/arm/arch-arm-armv7-a-neon/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-full.so \
-    prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-core/libprotobuf-cpp-full.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libprotobuf-cpp-full.so 
 
 # QMI
 PRODUCT_PACKAGES += \
