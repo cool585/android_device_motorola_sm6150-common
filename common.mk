@@ -232,11 +232,9 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
     gralloc.qcom \
-    gralloc.sm6150 \
-    hwcomposer.sm6150 \
+    hwcomposer.qcom \
     libdisplayconfig.qti \
     libqdMetaData \
-    libqdMetaData.system \
     libtinyxml \
     libvulkan \
     vendor.display.config@1.15.vendor \
@@ -359,16 +357,10 @@ ifeq ($(TARGET_SUPPORTS_OMX_SERVICE),true)
 PRODUCT_PACKAGES += \
     libavservices_minijail \
     libavservices_minijail.vendor \
-    libavservices_minijail_vendor \
     libc2dcolorconvert \
     libcodec2_hidl@1.0.vendor \
     libcodec2_vndk.vendor \
-    libOmxAacEnc \
-    libOmxAmrEnc \
     libOmxCore \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
     libOmxVidcCommon \
@@ -391,9 +383,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/qti_whitelist_system_ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/sysconfig/qti_whitelist_system_ext.xml
 
 # Protobuf
-PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full-3.9.1-vendorcompat \
-    libprotobuf-cpp-lite-3.9.1-vendorcompat
+# The QTI blobs are linked against protobuf 3.9.1, but Android 17 replaced the
+# 3.9.1 prebuilts with an arm-only protobuf 21.12 build. Install the 3.9.1 ABI
+# libraries ourselves so those blobs can still load.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/protobuf/arm/libprotobuf-cpp-full-3.9.1.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-full-3.9.1.so \
+    $(LOCAL_PATH)/protobuf/arm/libprotobuf-cpp-lite-3.9.1.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-lite-3.9.1.so \
+    $(LOCAL_PATH)/protobuf/arm64/libprotobuf-cpp-full-3.9.1.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libprotobuf-cpp-full-3.9.1.so \
+    $(LOCAL_PATH)/protobuf/arm64/libprotobuf-cpp-lite-3.9.1.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libprotobuf-cpp-lite-3.9.1.so
 
 # QMI
 PRODUCT_PACKAGES += \
