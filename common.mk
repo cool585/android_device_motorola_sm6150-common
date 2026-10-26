@@ -210,10 +210,6 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_sm6150)
 
-# Configstore
-PRODUCT_PACKAGES += \
-    disable_configstore
-
 # Crypto
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor \
