@@ -233,6 +233,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.thumbnail.prefer_hw_codecs=true \
+    debug.stagefright.c2inputsurface=-1 \
     persist.vendor.media.recorder.bt709=true
 
 PRODUCT_PRODUCT_PROPERTIES += \
