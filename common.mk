@@ -187,7 +187,6 @@ PRODUCT_PACKAGES += \
 
 # Common init scripts
 PRODUCT_PACKAGES += \
-    fstab.qcom \
     init.class_main.sh \
     init.crda.sh \
     init.mdm.sh \
@@ -213,6 +212,15 @@ PRODUCT_PACKAGES += \
     init.recovery.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc
+
+# Fstab
+ifeq ($(PRODUCT_USE_DYNAMIC_PARTITIONS), true)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init/fstab_dynamic.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom
+else
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom
+endif
 
 $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_sm6150)
 
