@@ -581,7 +581,7 @@ vendor/lib64/libQTEEConnector_vendor.so
 vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so
 
 # Radio
-etc/permissions/privapp-permissions-qti.xml
+system/etc/permissions/privapp-permissions-qti.xml
 -product/app/uimgbaservice/uimgbaservice.apk
 product/etc/permissions/UimGba.xml
 product/etc/permissions/UimGbaManager.xml
@@ -730,8 +730,8 @@ vendor/radio/qcril_database/qcril.db
 system_ext/priv-app/ims/ims.apk|2fbaabee440315379ad284c38ebe2a006db50216
 
 # Radio - Moto Telephony Framework
-etc/permissions/moto-telephony.xml:system_ext/etc/permissions/moto-telephony.xml
-framework/moto-telephony.jar:system_ext/framework/moto-telephony.jar
+system/etc/permissions/moto-telephony.xml:system_ext/etc/permissions/moto-telephony.xml
+system/framework/moto-telephony.jar:system_ext/framework/moto-telephony.jar
 
 # Radio - IMS
 product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml
