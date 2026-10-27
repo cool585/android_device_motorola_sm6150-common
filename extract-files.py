@@ -42,7 +42,6 @@ lib_fixups: lib_fixups_user_type = {
         'vendor.qti.imsrtpservice@3.0',
     ): lib_fixup_vendor_suffix,
     (
-        'libOmxCore',
         'libqsap_sdk',
         'libwpa_client',
     ): lib_fixup_remove,
@@ -56,6 +55,7 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('system/framework', 'system/system_ext/framework'),
     'vendor/lib64/libwvhidl.so': blob_fixup()
         .add_needed('libcrypto_shim.so'),
+    'vendor/lib64/sensors.moto.so': blob_fixup().add_needed('libbase_shim.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
