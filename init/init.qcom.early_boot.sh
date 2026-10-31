@@ -416,12 +416,10 @@ case "$target" in
 esac
 
 baseband=`getprop ro.baseband`
-#enable atfwd daemon all targets except sda, apq, qcs
+#disable atfwd daemon
 case "$baseband" in
-    "apq" | "sda" | "qcs" )
-        setprop persist.vendor.radio.atfwd.start false;;
     *)
-        setprop persist.vendor.radio.atfwd.start true;;
+        setprop persist.vendor.radio.atfwd.start false;;
 esac
 
 #set default lcd density
