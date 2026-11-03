@@ -30,9 +30,12 @@
 
 #include <cstdlib>
 #include <fstream>
+#include <string>
 #include <string.h>
 #include <sys/sysinfo.h>
 #include <unistd.h>
+
+#include <android-base/properties.h>
 
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
@@ -100,4 +103,35 @@ void vendor_load_properties()
     property_override("dalvik.vm.heaptargetutilization", heaptargetutilization);
     property_override("dalvik.vm.heapminfree", heapminfree);
     property_override("dalvik.vm.heapmaxfree", heapmaxfree);
+
+    std::string carrier = android::base::GetProperty("ro.boot.carrier", "");
+    if (!carrier.empty()) {
+        property_override("ro.carrier", carrier.c_str());
+        property_override("ro.vendor.carrier", carrier.c_str());
+    }
+
+    std::string radio = android::base::GetProperty("ro.boot.radio", "");
+    if (!radio.empty()) {
+        property_override("ro.vendor.hw.radio", radio.c_str());
+        property_override("ro.vendor.boot.radio", radio.c_str());
+    }
+
+    std::string device = android::base::GetProperty("ro.boot.device", "");
+    if (!device.empty()) {
+        property_override("ro.vendor.hw.device", device.c_str());
+    }
+
+    std::string dualsim = android::base::GetProperty("ro.boot.dualsim", "");
+    if (!dualsim.empty()) {
+        property_override("ro.vendor.hw.dualsim", dualsim.c_str());
+        if (dualsim == "true") {
+            property_override("persist.radio.multisim.config", "dsds");
+            property_override("persist.vendor.radio.multisim.config", "dsds");
+        }
+    }
+
+    std::string sku_variant = android::base::GetProperty("ro.boot.sku_variant", "");
+    if (!sku_variant.empty()) {
+        property_override("ro.vendor.hw.sku_variant", sku_variant.c_str());
+    }
 }

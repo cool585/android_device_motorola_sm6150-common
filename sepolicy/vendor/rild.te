@@ -10,3 +10,4 @@ allow rild cutback_data_file:file { ioctl read write getattr lock append map ope
 allow rild cutback_data_file:sock_file { create write unlink };
 allow rild cutback_socket:sock_file { ioctl read write create getattr setattr lock append map unlink rename open };
 allow rild mnt_vendor_file:dir search;
+r_dir_file(rild, fsg_firmware_file)
