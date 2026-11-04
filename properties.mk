@@ -265,7 +265,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.extension_library=libqti-perfd-client.so
 
 # Radio
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.build.vendorprefix=/vendor \
     ro.vendor.radio.imei.sv=11 \
     persist.vendor.data.iwlan.enable=true \
@@ -288,7 +288,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.sw_mbn_update=0 \
     persist.vendor.radio.sar_sensor=1 \
     persist.vendor.radio.fi_supported=0 \
-    persist.vendor.radio.rat_on=other \
+    persist.vendor.radio.rat_on=combine \
     persist.vendor.radio.hidl_dev_service=1 \
     persist.vendor.lte.pco_supported=true \
     persist.vendor.radio.enableadvancedscan=true \
@@ -299,16 +299,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.snapshot_enabled=1 \
     persist.vendor.radio.aosp_usr_pref_sel=true \
     persist.vendor.radio.flexmap_type=none \
-    persist.vendor.radio.enable_temp_dds=true
+    persist.vendor.radio.enable_temp_dds=true \
+    persist.vendor.data.mode=concurrent \
+    ro.vendor.use_data_netmgrd=true
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     DEVICE_PROVISIONED=1 \
     persist.sys.fflag.override.settings_provider_model=false \
-    persist.vendor.data.mode=concurrent \
-    ril.subscription.types=NV,RUIM \
-    ro.telephony.default_network=10,10 \
-    ro.vendor.use_data_netmgrd=true \
-    telephony.lteOnCdmaDevice=1,1
+    ro.telephony.default_network=9,9
 
 # SurfaceFlinger
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \

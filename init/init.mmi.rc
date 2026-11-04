@@ -333,6 +333,31 @@ on charger
     class_stop late_start
 
 # translate MMI property in order to keep the consistent with QCOM
+on property:ro.boot.dualsim=true
+   setprop ro.vendor.hw.dualsim true
+   setprop persist.radio.multisim.config dsds
+   setprop ro.telephony.sim_slots.count 2
+
+on property:ro.boot.hardware.sku=XT2067-1
+   setprop ro.vendor.hw.dualsim true
+   setprop persist.radio.multisim.config dsds
+   setprop ro.telephony.sim_slots.count 2
+
+on property:ro.boot.hardware.sku=XT2067-2
+   setprop ro.vendor.hw.dualsim true
+   setprop persist.radio.multisim.config dsds
+   setprop ro.telephony.sim_slots.count 2
+
+on property:ro.boot.hardware.sku=XT2067-3
+   setprop ro.vendor.hw.dualsim true
+   setprop persist.radio.multisim.config dsds
+   setprop ro.telephony.sim_slots.count 2
+
+on property:ro.boot.hardware.sku=XT2067-4
+   setprop ro.vendor.hw.dualsim true
+   setprop persist.radio.multisim.config dsds
+   setprop ro.telephony.sim_slots.count 2
+
 on property:ro.vendor.hw.dualsim=true
    setprop persist.radio.multisim.config dsds
    setprop ro.telephony.sim_slots.count 2
