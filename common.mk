@@ -245,6 +245,9 @@ PRODUCT_PACKAGES += \
     libcrypto_shim \
     libwvhidl
 
+# Face unlock
+TARGET_FACE_UNLOCK_SUPPORTED := true
+
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1.vendor \
