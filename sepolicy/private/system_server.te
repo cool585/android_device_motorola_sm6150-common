@@ -1,1 +1,3 @@
 get_prop(system_server, vendor_persist_camera_prop)
+# Allow system_server to set scheduling policy for priv_app
+allow system_server priv_app:process setsched;
