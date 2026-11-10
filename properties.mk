@@ -194,6 +194,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwui.renderer=skiagl \
+    renderthread.skia.renderer=skiagl \
     debug.hwui.use_hint_manager=true \
     debug.hwui.target_cpu_time_percent=30
 
