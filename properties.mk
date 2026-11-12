@@ -244,9 +244,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2inputsurface=-1 \
     persist.vendor.media.recorder.bt709=true
 
+# Freeform windows are rendered by system_server. With avoid_gfx_accel=true,
+# ActivityManager.isHighEndGfx() returns false and system_server never enables
+# hardware acceleration, so the TextureView backing the freeform window stays
+# blank. Keep HWUI enabled for system processes.
 PRODUCT_PRODUCT_PROPERTIES += \
     media.settings.xml=/vendor/etc/media_profiles_vendor.xml \
-    ro.config.avoid_gfx_accel=true
+    ro.config.avoid_gfx_accel=false
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     av.offload.enable=true \
