@@ -803,7 +803,9 @@ on property:sys.usb.config=uvc && property:sys.usb.configfs=1
 
 on property:vendor.usb.uvc.function.init=1
     write /config/usb_gadget/g1/functions/uvc.0/function_name "Android Webcam"
-    write /config/usb_gadget/g1/functions/uvc.0/streaming_maxpacket 1024
+    # 3072 bytes per (micro)frame: 3x1024 high-bandwidth ISOC for HS,
+    # 1024 x (maxburst + 1) for SS. Matches the AOSP reference setup.
+    write /config/usb_gadget/g1/functions/uvc.0/streaming_maxpacket 3072
     write /config/usb_gadget/g1/functions/uvc.0/streaming_maxburst 2
     # setup control params
     mkdir /config/usb_gadget/g1/functions/uvc.0/control/header/h
@@ -811,6 +813,16 @@ on property:vendor.usb.uvc.function.init=1
     symlink /config/usb_gadget/g1/functions/uvc.0/control/header/h /config/usb_gadget/g1/functions/uvc.0/control/class/ss/h
     # advertise mjpeg streams
     mkdir /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m
+    # advertise 480p resolution for webcam encoded as mjpeg
+    mkdir /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/480p
+    write /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/480p/wHeight 480
+    write /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/480p/wWidth 640
+    write /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/480p/dwMaxVideoFrameBufferSize 614400
+    write /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/480p/dwDefaultFrameInterval 333333
+    write /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/480p/dwFrameInterval "166666
+333333
+416666
+666666"
     # advertise 720p resolution for webcam encoded as mjpeg
     mkdir /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/720p
     write /config/usb_gadget/g1/functions/uvc.0/streaming/mjpeg/m/720p/wHeight 720
