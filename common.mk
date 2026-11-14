@@ -312,11 +312,22 @@ $(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
 
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_codecs_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2.xml \
     $(LOCAL_PATH)/configs/media_codecs_performance_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_c2.xml \
     $(LOCAL_PATH)/configs/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(LOCAL_PATH)/configs/media_profiles_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
+
+# Media (media_codecs.xml)
+# The Dolby device trees ship media_codecs_dolby_audio.xml and need it
+# included; the others must not reference it, because a missing Include is
+# fatal to the codec list parser.
+ifeq ($(filter %_liber,$(TARGET_PRODUCT)),)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+else
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media_codecs_dolby.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+endif
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml
