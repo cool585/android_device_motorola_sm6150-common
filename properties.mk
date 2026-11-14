@@ -279,7 +279,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.build.vendorprefix=/vendor \
     ro.vendor.radio.imei.sv=24 \
     persist.vendor.data.iwlan.enable=true \
-    persist.radio.start_ota_daemon=1 \
     persist.vendor.radio.jbims=1 \
     persist.vendor.radio.start_ota_daemon=1 \
     persist.vendor.sys.cnd.iwlan=1 \
