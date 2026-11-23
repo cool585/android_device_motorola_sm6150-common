@@ -145,7 +145,7 @@ PRODUCT_PACKAGES += \
     audio.primary.sm6150
 endif
 
-ifeq ($(filter %_liber %_parker,$(TARGET_PRODUCT)),)
+ifeq ($(filter %_liber %_parker %_hanoip,$(TARGET_PRODUCT)),)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 endif
@@ -162,10 +162,13 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Boot control
+# Hanoip keeps its own in-tree bootctrl + gpt-utils modules (renamed -hanoip).
+ifeq ($(filter %_hanoip,$(TARGET_PRODUCT)),)
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl-qti \
     android.hardware.boot@1.2-service \
     android.hardware.boot@1.2-impl-qti.recovery
+endif
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
@@ -213,12 +216,15 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc
 
 # Fstab
+# Hanoip uses a virtual A/B fstab and provides its own copy.
+ifeq ($(filter %_hanoip,$(TARGET_PRODUCT)),)
 ifeq ($(PRODUCT_USE_DYNAMIC_PARTITIONS), true)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init/fstab_dynamic.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom
 else
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom
+endif
 endif
 
 $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_sm6150)
@@ -227,10 +233,6 @@ $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_sm6150)
 # Dependencies
 PRODUCT_PACKAGES += \
     libutils.vendor
-
-# Device ID attestation
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 
 # Display
 PRODUCT_PACKAGES += \
@@ -314,14 +316,21 @@ $(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2.xml \
     $(LOCAL_PATH)/configs/media_codecs_performance_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_c2.xml \
-    $(LOCAL_PATH)/configs/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(LOCAL_PATH)/configs/media_profiles_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
+
+# Hanoip ships its own media_profiles_V1_0.xml
+ifeq ($(filter %_hanoip,$(TARGET_PRODUCT)),)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+endif
 
 # Media (media_codecs.xml)
 # The Dolby device trees ship media_codecs_dolby_audio.xml and need it
 # included; the others must not reference it, because a missing Include is
 # fatal to the codec list parser.
-ifeq ($(filter %_liber,$(TARGET_PRODUCT)),)
+ifneq ($(filter %_hanoip,$(TARGET_PRODUCT)),)
+# Hanoip ships its own media_codecs.xml
+else ifeq ($(filter %_liber,$(TARGET_PRODUCT)),)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 else

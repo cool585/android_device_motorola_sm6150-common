@@ -14,6 +14,30 @@
 // limitations under the License.
 //
 
+// Per-device init sources are selected through this soong_config bool. Hanoip
+// sets `hanoip` = true (see device/motorola/hanoip/device.mk) and gets the
+// sources under init/hanoip/; every other device keeps the shared sources.
+soong_config_bool_variable {
+    name: "hanoip",
+    config_namespace: "motorola_sm6150",
+}
+
+soong_config_module_type {
+    name: "sm6150_init_etc",
+    module_type: "prebuilt_etc",
+    config_namespace: "motorola_sm6150",
+    bool_variables: ["hanoip"],
+    properties: ["src"],
+}
+
+soong_config_module_type {
+    name: "sm6150_init_sh",
+    module_type: "sh_binary",
+    config_namespace: "motorola_sm6150",
+    bool_variables: ["hanoip"],
+    properties: ["src"],
+}
+
 // Init scripts
 prebuilt_etc {
     name: "init.mmi.chipset.rc",
@@ -22,9 +46,14 @@ prebuilt_etc {
     vendor: true,
 }
 
-prebuilt_etc {
+sm6150_init_etc {
     name: "init.mmi.rc",
     src: "init.mmi.rc",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/init.mmi.rc",
+        },
+    },
     sub_dir: "init/hw",
     vendor: true,
 }
@@ -36,16 +65,26 @@ prebuilt_etc {
     vendor: true,
 }
 
-prebuilt_etc {
+sm6150_init_etc {
     name: "init.qcom.power.rc",
     src: "init.qcom.power.rc",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/init.qcom.power.rc",
+        },
+    },
     sub_dir: "init/hw",
     vendor: true,
 }
 
-prebuilt_etc {
+sm6150_init_etc {
     name: "init.qcom.rc",
     src: "init.qcom.rc",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/init.qcom.rc",
+        },
+    },
     sub_dir: "init/hw",
     vendor: true,
 }
@@ -57,24 +96,39 @@ prebuilt_etc {
     recovery: true,
 }
 
-prebuilt_etc {
+sm6150_init_etc {
     name: "init.target.rc",
     src: "init.target.rc",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/init.target.rc",
+        },
+    },
     sub_dir: "init/hw",
     vendor: true,
 }
 
-prebuilt_etc {
+sm6150_init_etc {
     name: "ueventd.qcom.rc",
     filename: "ueventd.rc",
     src: "ueventd.rc",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/ueventd.rc",
+        },
+    },
     vendor: true,
 }
 
 // Init executables
-sh_binary {
+sm6150_init_sh {
     name: "init.class_main.sh",
     src: "init.class_main.sh",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/init.class_main.sh",
+        },
+    },
     vendor: true,
 }
 
@@ -132,9 +186,14 @@ sh_binary {
     vendor: true,
 }
 
-sh_binary {
+sm6150_init_sh {
     name: "init.qcom.early_boot.sh",
     src: "init.qcom.early_boot.sh",
+    soong_config_variables: {
+        hanoip: {
+            src: "hanoip/init.qcom.early_boot.sh",
+        },
+    },
     vendor: true,
 }
 
