@@ -144,6 +144,7 @@ cc_prebuilt_binary {
 	},
 	prefer: true,
 	relative_install_path: "hw",
+	vintf_fragments: ["vendor.dolby.hardware.dms@2.0-service.xml"],
 	soc_specific: true,
 }
 
@@ -247,6 +248,7 @@ cc_prebuilt_binary {
 	},
 	prefer: true,
 	relative_install_path: "hw",
+	vintf_fragments: ["vendor.dolby.media.c2.xml"],
 	soc_specific: true,
 }
 

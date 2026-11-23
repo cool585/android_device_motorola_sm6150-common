@@ -26,6 +26,9 @@ PRODUCT_PACKAGES += \
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/motorola/sm6150-common/sm6150-common-vendor.mk)
 
+# Dolby (shared stack for all sm6150 devices)
+$(call inherit-product, $(LOCAL_PATH)/dolby/dolby.mk)
+
 # Additional native libraries
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
