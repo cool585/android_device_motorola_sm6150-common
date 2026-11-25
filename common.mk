@@ -138,12 +138,8 @@ PRODUCT_PACKAGES += \
     libaudioroute.vendor \
     libstagefright_softomx_plugin.vendor
 
-# Liber uses the prebuilt audio.primary.sm6150 blob (with a power HAL
-# compatibility shim), so do not also build the source HAL.
-ifeq ($(filter %_liber,$(TARGET_PRODUCT)),)
 PRODUCT_PACKAGES += \
     audio.primary.sm6150
-endif
 
 ifeq ($(filter %_liber %_parker,$(TARGET_PRODUCT)),)
 PRODUCT_COPY_FILES += \
